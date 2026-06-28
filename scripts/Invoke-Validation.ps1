@@ -5,18 +5,24 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
+$examplesRoot = Join-Path $repoRoot "examples"
 $tests = @(
-    "examples/01-open-folder-multi-root/tests/validate.ps1",
-    "examples/02-open-folder-cpp-environments/tests/validate.ps1",
-    "examples/03-external-build-ninja/tests/validate.ps1",
-    "examples/04-external-build-dsl-pipeline/tests/validate.ps1",
-    "examples/05-dsl-textmate-vsix/tests/validate.ps1",
-    "examples/06-open-folder-fasm2-build/tests/validate.ps1",
-    "examples/07-fasm-textmate-vsix/tests/validate.ps1",
-    "examples/08-open-folder-fasm-profiles/tests/validate.ps1",
-    "examples/09-vsix-fasmg-selection-commands/tests/validate.ps1",
-    "examples/10-native-fasmg-parser-core/tests/validate.ps1"
+    Get-ChildItem -Path $examplesRoot -Directory |
+        Sort-Object -Property Name |
+        ForEach-Object {
+            $testPath = Join-Path $_.FullName "tests/validate.ps1"
+            if (Test-Path -LiteralPath $testPath) {
+                [System.IO.Path]::GetRelativePath($repoRoot, $testPath)
+            }
+            else {
+                Write-Warning "Skipping $($_.Name): tests/validate.ps1 was not found."
+            }
+        }
 )
+
+if ($tests.Count -eq 0) {
+    throw "No example validation scripts were found under $examplesRoot."
+}
 
 $failures = @()
 
