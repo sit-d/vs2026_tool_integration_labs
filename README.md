@@ -8,7 +8,7 @@ This repo is a lab set for validating how `Visual Studio Community 2026 (18.x)` 
 
 Each example lives in its own folder, includes its own `README.md`, and has a `tests/validate.ps1` preflight script. The local scripts validate file shapes and runnable paths; the Visual Studio steps validate the IDE behavior we care about.
 
-The first five examples establish the foundation behavior. Examples 06 and 07 pivot that foundation into a real `fasm2`/`fasmg` workflow with checked-in sample sources and a real VSIX for `.fasm` and `.finc`. Example 08 starts the next tier by moving real tool configuration into a schema-backed profile file. Example 09 adds the first command-style editor utilities on top of that language foundation. Example 10 starts the native parser-core and LSP track with a buildable bootstrap parser, Tree-sitter-aligned parse-tree semantics, a synced `tree-sitter-fasmg` workspace scaffold, managed smoke-test harness, regression checks against the local `fasmg_syntax` resources, and first-pass symbol lifecycle tracking for `restore` / `purge`.
+The first five examples establish the foundation behavior. Examples 06 and 07 pivot that foundation into a real `fasm2`/`fasmg` workflow with checked-in sample sources and a real VSIX for `.fasm` and `.finc`. Example 08 starts the next tier by moving real tool configuration into a schema-backed profile file. Example 09 adds the first command-style editor utilities on top of that language foundation. The current checked-in catalog stops at Example 09, matching the table below.
 
 ## UI Notes
 
